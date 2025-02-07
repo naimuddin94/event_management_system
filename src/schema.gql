@@ -1,0 +1,69 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateUserInput {
+  email: String!
+  password: String!
+  userName: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type GetUsersPaginatedResponse {
+  users: [User!]!
+  usersCount: Int!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+type LoginUserResponse {
+  accessToken: String!
+  refreshToken: String!
+  user: User!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  logIn(loginUserInput: LoginUserInput!): LoginUserResponse!
+  refreshToken(refreshTokenInput: RefreshTokenInput!): RefreshTokenResponse!
+  removeUser(id: String!): User!
+  signUp(signUpInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+}
+
+type Query {
+  getAllUsers(limit: Int = 10, skip: Int = 0): GetUsersPaginatedResponse!
+  getHello: String!
+  getUserByEmail(email: String!): User!
+  getUserById(id: String!): User!
+}
+
+input RefreshTokenInput {
+  refreshToken: String!
+}
+
+type RefreshTokenResponse {
+  accessToken: String!
+}
+
+input UpdateUserInput {
+  _id: String!
+  userName: String
+}
+
+type User {
+  _id: String!
+  createdAt: DateTime!
+  email: String!
+  password: String!
+  roles: [String!]!
+  updatedAt: DateTime!
+  userName: String!
+}
