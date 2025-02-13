@@ -4,6 +4,8 @@
 
 input CreateUserInput {
   email: String!
+  firstName: String!
+  lastName: String!
   password: String!
   userName: String!
 }
@@ -55,6 +57,8 @@ type RefreshTokenResponse {
 
 input UpdateUserInput {
   _id: String!
+  firstName: String
+  lastName: String
   userName: String
 }
 

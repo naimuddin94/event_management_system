@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserResolver } from './user.resolver';
 import * as Chance from 'chance';
-import { CreateUserInput } from './dto/create-user.input';
 import { Schema as MongooSchema } from 'mongoose';
-import { UpdateUserInput } from './dto/update-user.input';
 import { GetPaginatedArgs } from '../common/dto/get-paginated.args';
+import { CreateUserInput } from './dto/create-user.input';
+import { UpdateUserInput } from './dto/update-user.input';
+import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
 
 let userId = new MongooSchema.Types.ObjectId('');
@@ -12,6 +12,8 @@ let email: string = '';
 const chance = new Chance();
 
 const createUserInput: CreateUserInput = {
+  firstName: 'John',
+  lastName: 'Doe',
   userName: chance.name(),
   password: 'FakePassword1?',
   email: chance.email(),

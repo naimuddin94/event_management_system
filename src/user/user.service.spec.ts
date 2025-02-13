@@ -1,22 +1,24 @@
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserService } from './user.service';
-import { User, UserSchema } from './entities/user.entity';
+import * as Chance from 'chance';
+import { Schema as MongooSchema } from 'mongoose';
+import { GetPaginatedArgs } from '../common/dto/get-paginated.args';
 import {
   closeInMongodConnection,
   rootMongooseTestModule,
 } from '../common/helpers/mongoose.helper';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { MongooseModule } from '@nestjs/mongoose';
-import * as Chance from 'chance';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { Schema as MongooSchema } from 'mongoose';
-import { GetPaginatedArgs } from '../common/dto/get-paginated.args';
+import { User, UserSchema } from './entities/user.entity';
+import { UserService } from './user.service';
 
 let userId = new MongooSchema.Types.ObjectId('');
 const chance = new Chance();
 
 export const createUserInput: CreateUserInput = {
+  firstName: 'John',
+  lastName: 'Doe',
   userName: chance.name(),
   password: 'FakePassword1?',
   email: chance.email(),
