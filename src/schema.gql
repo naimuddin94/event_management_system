@@ -62,8 +62,14 @@ type User {
   _id: String!
   createdAt: DateTime!
   email: String!
+  firstName: String!
+  googleId: String
+  image: String!
+  isVerified: Boolean!
+  lastName: String!
   password: String!
-  roles: [String!]!
+  refreshToken: String
+  status: String!
   updatedAt: DateTime!
   userName: String!
 }

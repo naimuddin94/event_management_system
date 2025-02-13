@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Args } from '@nestjs/graphql';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema as MongooSchema } from 'mongoose';
+import { GetPaginatedArgs } from '../common/dto/get-paginated.args';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User, UserDocument } from './entities/user.entity';
-import * as bcrypt from 'bcrypt';
-import { Args } from '@nestjs/graphql';
-import { GetPaginatedArgs } from '../common/dto/get-paginated.args';
 
 @Injectable()
 export class UserService {
@@ -36,19 +35,11 @@ export class UserService {
   }
 
   async createUser(createUserInput: CreateUserInput) {
-    const hash = await bcrypt.hash(
-      createUserInput.password,
-      Number(this.configService.get<string>('SALT_ROUND')),
-    );
-
     if (!createUserInput.userName) {
       createUserInput.userName = createUserInput.email;
     }
 
-    const createdUser = new this.userModel({
-      ...createUserInput,
-      password: hash,
-    });
+    const createdUser = new this.userModel(createUserInput);
 
     return createdUser.save();
   }

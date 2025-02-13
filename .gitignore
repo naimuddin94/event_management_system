@@ -6,7 +6,7 @@
 # Node artifact files
 node_modules/
 dist/
-.env
+
 
 # Compiled Java class files
 *.class
@@ -65,6 +65,7 @@ TEST*.xml
 !.vscode/extensions.json
 
 # dotenv environment variable files
+.env
 .env.development.local
 .env.test.local
 .env.production.local
