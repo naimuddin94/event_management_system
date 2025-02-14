@@ -1,14 +1,14 @@
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
+import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
+import { join } from 'path';
+import { AuthModule } from '../auth/auth.module';
+import { CommonModule } from '../common/common.module';
+import { UserModule } from '../user/user.module';
 import { AppResolver } from './app.resolver';
 import { AppService } from './app.service';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
-import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UserModule } from '../user/user.module';
-import { CommonModule } from '../common/common.module';
-import { AuthModule } from '../auth/auth.module';
 // import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 
 @Module({
@@ -19,6 +19,7 @@ import { AuthModule } from '../auth/auth.module';
       sortSchema: true,
       // playground: false,
       // plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      debug: process.env.NODE_ENV === 'testing',
       introspection: true,
       cache: 'bounded',
     }),

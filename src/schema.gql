@@ -33,10 +33,10 @@ type LoginUserResponse {
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
-  logIn(loginUserInput: LoginUserInput!): LoginUserResponse!
   refreshToken(refreshTokenInput: RefreshTokenInput!): RefreshTokenResponse!
   removeUser(id: String!): User!
-  signUp(signUpInput: CreateUserInput!): User!
+  signin(loginUserInput: LoginUserInput!): LoginUserResponse!
+  signup(signUpInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 

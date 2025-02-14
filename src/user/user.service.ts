@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { Args } from '@nestjs/graphql';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Schema as MongooSchema } from 'mongoose';
+import { AppError } from 'src/utils';
 import { GetPaginatedArgs } from '../common/dto/get-paginated.args';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
@@ -31,12 +32,31 @@ export class UserService {
   }
 
   async findUserByEmail(email: string) {
-    return this.userModel.findOne({ email });
+    return this.userModel.findOne({ email }).select('+password');
   }
 
   async createUser(createUserInput: CreateUserInput) {
+    // Check if the email is already taken
+    const existingUser = await this.userModel.findOne({
+      email: createUserInput.email,
+    });
+
+    if (existingUser) {
+      throw new AppError(400, 'The email is already taken.');
+    }
+
+    // If the username is not provided, use the email as the username
     if (!createUserInput.userName) {
       createUserInput.userName = createUserInput.email;
+    }
+
+    // Check if the username is already taken
+    const existingUserName = await this.userModel.findOne({
+      userName: createUserInput?.userName,
+    });
+
+    if (existingUserName) {
+      throw new AppError(400, 'Username is already taken.');
     }
 
     const createdUser = new this.userModel(createUserInput);

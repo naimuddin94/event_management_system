@@ -1,12 +1,12 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { UserService } from './user.service';
-import { GetUsersPaginatedResponse, User } from './entities/user.entity';
+import { UseGuards } from '@nestjs/common';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Schema as MongooSchema } from 'mongoose';
+import { JwtAuthGuard } from '../auth/jwt-auth.gards';
+import { GetPaginatedArgs } from '../common/dto/get-paginated.args';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { GetPaginatedArgs } from '../common/dto/get-paginated.args';
-import { JwtAuthGuard } from '../auth/jwt-auth.gards';
-import { UseGuards } from '@nestjs/common';
-import { Schema as MongooSchema } from 'mongoose';
+import { GetUsersPaginatedResponse, User } from './entities/user.entity';
+import { UserService } from './user.service';
 
 @Resolver(() => User)
 export class UserResolver {

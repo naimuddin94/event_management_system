@@ -2,6 +2,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
+import * as Chance from 'chance';
+import { USER_ALREADY_EXIST_EXCEPTION } from '../common/exceptions/user.exceptions';
 import {
   closeInMongodConnection,
   rootMongooseTestModule,
@@ -11,14 +13,14 @@ import { User, UserSchema } from '../user/entities/user.entity';
 import { UserModule } from '../user/user.module';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
-import * as Chance from 'chance';
-import { USER_ALREADY_EXIST_EXCEPTION } from '../common/exceptions/user.exceptions';
 
 const chance = new Chance();
 let user: User;
 let refreshToken: string;
 
 const signUpUserInput: CreateUserInput = {
+  firstName: 'John',
+  lastName: 'Doe',
   email: chance.email(),
   userName: chance.string({ length: 12 }),
   password: 'NewPassword2!',
