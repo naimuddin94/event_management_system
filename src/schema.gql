@@ -105,8 +105,8 @@ type User {
   image: String!
   isVerified: Boolean!
   lastName: String!
-  password: String!
   refreshToken: String
+  role: String!
   status: String!
   updatedAt: DateTime!
   userName: String!

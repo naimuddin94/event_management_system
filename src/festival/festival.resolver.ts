@@ -15,6 +15,7 @@ export class FestivalResolver {
     @Args('createFestivalInput') createFestivalInput: CreateFestivalInput,
     @Context() context: GraphQLContext,
   ) {
+    console.log('from festival resolver:', JSON.stringify(createFestivalInput));
     const token = ExtractJwt.fromAuthHeaderAsBearerToken()(context.req);
     return this.festivalService.create(token, createFestivalInput);
   }

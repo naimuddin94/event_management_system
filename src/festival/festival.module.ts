@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Festival, FestivalSchema } from './entities/festival.entity';
+import { Festival } from './entities/festival.entity';
 import { FestivalResolver } from './festival.resolver';
 import { FestivalService } from './festival.service';
+import { FestivalSchema } from './model/festival.model';
 
 @Module({
   providers: [FestivalResolver, FestivalService, JwtService],

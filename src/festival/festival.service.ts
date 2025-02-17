@@ -4,7 +4,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateFestivalInput } from './dto/create-festival.input';
 import { UpdateFestivalInput } from './dto/update-festival.input';
-import { Festival, FestivalDocument } from './entities/festival.entity';
+import { Festival } from './entities/festival.entity';
+import { FestivalDocument } from './model/festival.model';
 
 @Injectable()
 export class FestivalService {
@@ -18,8 +19,10 @@ export class FestivalService {
     const decodedUser = this.jwtService.verify(token, {
       secret: process.env.JWT_SECRET,
     });
-    console.log('from festival', decodedUser);
-    return await this.festivalModel.create(createFestivalInput);
+    return await this.festivalModel.create({
+      user: decodedUser._d,
+      ...createFestivalInput,
+    });
   }
 
   async findAll() {
