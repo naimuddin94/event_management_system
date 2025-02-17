@@ -36,11 +36,12 @@ export class AuthService {
   }
 
   // Log In
-  logIn(user: User) {
+  signIn(user: User) {
     return {
       user,
       accessToken: this.jwtService.sign(
         {
+          _id: user._id,
           email: user.email,
           userName: user.userName,
           sub: user._id,
