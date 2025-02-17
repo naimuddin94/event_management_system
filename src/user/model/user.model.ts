@@ -12,7 +12,7 @@ import {
   timestamps: true,
   versionKey: false,
 })
-export class UserModel {
+export class User extends Document {
   @Prop({ type: String, required: true })
   firstName: string;
 
@@ -51,13 +51,12 @@ export class UserModel {
   status: TUserStatus;
 }
 
-export type UserDocument = UserModel & Document;
-export const UserSchema = SchemaFactory.createForClass(UserModel);
+export type UserDocument = User & Document;
+export const UserSchema = SchemaFactory.createForClass(User);
 
-// Modified password fields before save to database
-UserSchema.pre('save', async function (next) {
+// ✅ Explicitly register the model
+UserSchema.pre<UserDocument>('save', async function (next) {
   try {
-    // Check if the password is modified or this is a new user
     if (this.isModified('password') || this.isNew) {
       const hashPassword = await bcrypt.hash(
         this.password,

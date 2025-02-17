@@ -3,34 +3,33 @@ import { ExtractJwt } from 'passport-jwt';
 import { GraphQLContext } from 'src/types';
 import { CreateFestivalInput } from './dto/create-festival.input';
 import { UpdateFestivalInput } from './dto/update-festival.input';
-import { Festival } from './entities/festival.entity';
+import { GqlFestival } from './entities/festival.entity';
 import { FestivalService } from './festival.service';
 
-@Resolver(() => Festival)
+@Resolver(() => GqlFestival)
 export class FestivalResolver {
   constructor(private readonly festivalService: FestivalService) {}
 
-  @Mutation(() => Festival)
+  @Mutation(() => GqlFestival)
   createFestival(
     @Args('createFestivalInput') createFestivalInput: CreateFestivalInput,
     @Context() context: GraphQLContext,
   ) {
-    console.log('from festival resolver:', JSON.stringify(createFestivalInput));
     const token = ExtractJwt.fromAuthHeaderAsBearerToken()(context.req);
     return this.festivalService.create(token, createFestivalInput);
   }
 
-  @Query(() => [Festival], { name: 'festivals' })
+  @Query(() => [GqlFestival], { name: 'festivals' })
   findAll() {
     return this.festivalService.findAll();
   }
 
-  @Query(() => Festival, { name: 'festival' })
+  @Query(() => GqlFestival, { name: 'festival' })
   findOne(@Args('id') id: string) {
     return this.festivalService.findOne(id);
   }
 
-  @Mutation(() => Festival)
+  @Mutation(() => GqlFestival)
   updateFestival(
     @Args('updateFestivalInput') updateFestivalInput: UpdateFestivalInput,
   ) {
@@ -40,7 +39,7 @@ export class FestivalResolver {
     );
   }
 
-  @Mutation(() => Festival)
+  @Mutation(() => GqlFestival)
   removeFestival(@Args('id') id: string) {
     return this.festivalService.remove(id);
   }

@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { CreateUserInput } from '../user/dto/create-user.input';
-import { User } from '../user/entities/user.entity';
+import { GqlUser } from '../user/entities/user.entity';
 import { UserService } from '../user/user.service';
 import { LoginUserInput, RefreshTokenInput } from './dto/login-user.input';
 
@@ -19,6 +19,11 @@ export class AuthService {
   async validateUser(loginUserInput: LoginUserInput) {
     const { email, password } = loginUserInput;
     const user = await this.userService.findUserByEmail(email);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
     const isMatch = await bcrypt.compare(password, user?.password);
     if (user && isMatch) {
       return user;
@@ -36,7 +41,7 @@ export class AuthService {
   }
 
   // Log In
-  signIn(user: User) {
+  signIn(user: GqlUser) {
     return {
       user,
       accessToken: this.jwtService.sign(

@@ -1,8 +1,9 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Schema as MongooSchema } from 'mongoose';
+import { GqlUser } from 'src/user/entities/user.entity';
 
 @ObjectType()
-export class Festival {
+export class GqlFestival {
   @Field(() => String)
   _id: MongooSchema.Types.ObjectId;
 
@@ -24,6 +25,6 @@ export class Festival {
   @Field(() => Date)
   ends_at: Date;
 
-  @Field(() => String)
-  user: MongooSchema.Types.ObjectId;
+  @Field(() => GqlUser)
+  user: GqlUser;
 }

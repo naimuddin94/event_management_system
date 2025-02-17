@@ -4,11 +4,11 @@
 
 input CreateFestivalInput {
   description: String!
-  ends_at: DateTime!
+  ends_at: String!
   image: String!
   location: String!
   name: String!
-  starts_at: DateTime!
+  starts_at: String!
 }
 
 input CreateUserInput {
@@ -24,7 +24,12 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type Festival {
+type GetUsersPaginatedResponse {
+  users: [GqlUser!]!
+  usersCount: Int!
+}
+
+type GqlFestival {
   _id: String!
   description: String!
   ends_at: DateTime!
@@ -32,71 +37,10 @@ type Festival {
   location: String!
   name: String!
   starts_at: DateTime!
-  user: String!
+  user: GqlUser!
 }
 
-type GetUsersPaginatedResponse {
-  users: [User!]!
-  usersCount: Int!
-}
-
-input LoginUserInput {
-  email: String!
-  password: String!
-}
-
-type LoginUserResponse {
-  accessToken: String!
-  refreshToken: String!
-  user: User!
-}
-
-type Mutation {
-  createFestival(createFestivalInput: CreateFestivalInput!): Festival!
-  createUser(createUserInput: CreateUserInput!): User!
-  refreshToken(refreshTokenInput: RefreshTokenInput!): RefreshTokenResponse!
-  removeFestival(id: String!): Festival!
-  removeUser(id: String!): User!
-  signIn(loginUserInput: LoginUserInput!): LoginUserResponse!
-  signUp(signUpInput: CreateUserInput!): User!
-  updateFestival(updateFestivalInput: UpdateFestivalInput!): Festival!
-  updateUser(updateUserInput: UpdateUserInput!): User!
-}
-
-type Query {
-  festival(id: String!): Festival!
-  festivals: [Festival!]!
-  getAllUsers(limit: Int = 10, skip: Int = 0): GetUsersPaginatedResponse!
-  getUserByEmail(email: String!): User!
-  getUserById(id: String!): User!
-}
-
-input RefreshTokenInput {
-  refreshToken: String!
-}
-
-type RefreshTokenResponse {
-  accessToken: String!
-}
-
-input UpdateFestivalInput {
-  description: String
-  ends_at: DateTime
-  id: String!
-  image: String
-  location: String
-  name: String
-  starts_at: DateTime
-}
-
-input UpdateUserInput {
-  _id: String!
-  firstName: String
-  lastName: String
-  userName: String
-}
-
-type User {
+type GqlUser {
   _id: String!
   createdAt: DateTime!
   email: String!
@@ -110,4 +54,60 @@ type User {
   status: String!
   updatedAt: DateTime!
   userName: String!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+type LoginUserResponse {
+  accessToken: String!
+  refreshToken: String!
+  user: GqlUser!
+}
+
+type Mutation {
+  createFestival(createFestivalInput: CreateFestivalInput!): GqlFestival!
+  createUser(createUserInput: CreateUserInput!): GqlUser!
+  refreshToken(refreshTokenInput: RefreshTokenInput!): RefreshTokenResponse!
+  removeFestival(id: String!): GqlFestival!
+  removeUser(id: String!): GqlUser!
+  signIn(loginUserInput: LoginUserInput!): LoginUserResponse!
+  signUp(signUpInput: CreateUserInput!): GqlUser!
+  updateFestival(updateFestivalInput: UpdateFestivalInput!): GqlFestival!
+  updateUser(updateUserInput: UpdateUserInput!): GqlUser!
+}
+
+type Query {
+  festival(id: String!): GqlFestival!
+  festivals: [GqlFestival!]!
+  getAllUsers(limit: Int = 10, skip: Int = 0): GetUsersPaginatedResponse!
+  getUserByEmail(email: String!): GqlUser!
+  getUserById(id: String!): GqlUser!
+}
+
+input RefreshTokenInput {
+  refreshToken: String!
+}
+
+type RefreshTokenResponse {
+  accessToken: String!
+}
+
+input UpdateFestivalInput {
+  description: String
+  ends_at: String
+  id: String!
+  image: String
+  location: String
+  name: String
+  starts_at: String
+}
+
+input UpdateUserInput {
+  _id: String!
+  firstName: String
+  lastName: String
+  userName: String
 }

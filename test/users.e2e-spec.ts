@@ -1,35 +1,35 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from '../src/app/app.module';
+import { RefreshTokenInput } from '../src/auth/dto/login-user.input';
+import { GetPaginatedArgs } from '../src/common/dto/get-paginated.args';
 import {
   CODE_STATUSES,
   GRAPHQL_ENDPOINT,
 } from '../src/common/helpers/graphql.helper';
 import {
+  FAKE_PASS,
   generateSignUpUserVariables,
   generateUpdateUserVariables,
-  SIGNUP_USER_MUTATION,
-  SIGNUP_USER_OP_NAME,
   GET_USER_OP_NAME,
   GET_USER_QUERY,
   GET_USERS_OP_NAME,
   GET_USERS_QUERY,
-  LOGIN_USER_OP_NAME,
   LOGIN_USER_MUTATION,
+  LOGIN_USER_OP_NAME,
+  REFRESH_TOKEN_USER_MUTATION,
+  REFRESH_TOKEN_USER_OP_NAME,
+  SIGNUP_USER_MUTATION,
+  SIGNUP_USER_OP_NAME,
   UPDATE_USER_MUTATION,
   UPDATE_USER_OP_NAME,
-  FAKE_PASS,
-  REFRESH_TOKEN_USER_OP_NAME,
-  REFRESH_TOKEN_USER_MUTATION,
 } from '../src/common/helpers/user.helper';
-import { User } from '../src/user/entities/user.entity';
-import { GetPaginatedArgs } from '../src/common/dto/get-paginated.args';
-import { RefreshTokenInput } from '../src/auth/dto/login-user.input';
+import { GqlUser } from '../src/user/entities/user.entity';
 
 describe('User Resolver (e2e)', () => {
   let app: INestApplication;
-  let user: User;
+  let user: GqlUser;
   let accessToken, refreshToken;
 
   beforeEach(async () => {

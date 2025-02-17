@@ -3,7 +3,7 @@ import { Schema as MongooSchema } from 'mongoose';
 import { TUserRole, TUserStatus } from '../user.constant';
 
 @ObjectType()
-export class User {
+export class GqlUser {
   @Field(() => String)
   _id: MongooSchema.Types.ObjectId;
 
@@ -46,8 +46,8 @@ export class User {
 
 @ObjectType()
 export class GetUsersPaginatedResponse {
-  @Field(() => [User], { nullable: false, defaultValue: [] })
-  users: User[];
+  @Field(() => [GqlUser], { nullable: false, defaultValue: [] })
+  users: GqlUser[];
 
   @Field(() => Int, { nullable: false, defaultValue: 0 })
   usersCount: number;

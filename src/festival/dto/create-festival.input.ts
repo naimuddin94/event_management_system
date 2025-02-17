@@ -21,13 +21,13 @@ export class CreateFestivalInput {
   @IsNotEmpty()
   location: string;
 
-  @Field(() => Date)
+  @Field(() => String)
   @IsDateString()
   @IsNotEmpty()
-  starts_at: Date;
+  starts_at: string;
 
-  @Field(() => Date)
+  @Field(() => String)
   @IsDateString()
   @IsNotEmpty()
-  ends_at: Date;
+  ends_at: string;
 }

@@ -5,14 +5,14 @@ import { JwtAuthGuard } from '../auth/jwt-auth.gards';
 import { GetPaginatedArgs } from '../common/dto/get-paginated.args';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { GetUsersPaginatedResponse, User } from './entities/user.entity';
+import { GetUsersPaginatedResponse, GqlUser } from './entities/user.entity';
 import { UserService } from './user.service';
 
-@Resolver(() => User)
+@Resolver(() => GqlUser)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
-  @Mutation(() => User)
+  @Mutation(() => GqlUser)
   createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
     return this.userService.createUser(createUserInput);
   }
@@ -23,7 +23,7 @@ export class UserResolver {
     return this.userService.findAllUsers(args);
   }
 
-  @Query(() => User)
+  @Query(() => GqlUser)
   @UseGuards(JwtAuthGuard)
   getUserById(
     @Args('id', { type: () => String }) id: MongooSchema.Types.ObjectId,
@@ -31,19 +31,19 @@ export class UserResolver {
     return this.userService.findUserById(id);
   }
 
-  @Query(() => User)
+  @Query(() => GqlUser)
   @UseGuards(JwtAuthGuard)
   getUserByEmail(@Args('email', { type: () => String }) email: string) {
     return this.userService.findUserByEmail(email);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => GqlUser)
   @UseGuards(JwtAuthGuard)
   updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
     return this.userService.updateUser(updateUserInput._id, updateUserInput);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => GqlUser)
   @UseGuards(JwtAuthGuard)
   async removeUser(
     @Args('id', { type: () => String }) id: MongooSchema.Types.ObjectId,

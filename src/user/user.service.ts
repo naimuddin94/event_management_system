@@ -7,14 +7,13 @@ import { AppError } from 'src/utils';
 import { GetPaginatedArgs } from '../common/dto/get-paginated.args';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { User } from './entities/user.entity';
-import { UserDocument } from './model/user.model';
+import { User } from './model/user.model';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name)
-    private userModel: Model<UserDocument>,
+    private userModel: Model<User>,
     private readonly configService: ConfigService,
   ) {}
 
