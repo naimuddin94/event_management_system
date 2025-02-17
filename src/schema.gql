@@ -11,6 +11,12 @@ input CreateFestivalInput {
   starts_at: String!
 }
 
+input CreateScriptInput {
+  description: String!
+  image: String!
+  title: String!
+}
+
 input CreateUserInput {
   email: String!
   firstName: String!
@@ -31,13 +37,25 @@ type GetUsersPaginatedResponse {
 
 type GqlFestival {
   _id: String!
+  createdAt: DateTime!
   description: String!
   ends_at: DateTime!
   image: String!
   location: String!
   name: String!
   starts_at: DateTime!
+  updatedAt: DateTime!
   user: GqlUser!
+}
+
+type GqlScript {
+  _id: String!
+  author: GqlUser!
+  createdAt: DateTime!
+  description: String!
+  image: String!
+  title: String!
+  updatedAt: DateTime!
 }
 
 type GqlUser {
@@ -69,6 +87,7 @@ type LoginUserResponse {
 
 type Mutation {
   createFestival(createFestivalInput: CreateFestivalInput!): GqlFestival!
+  createScript(createScriptInput: CreateScriptInput!): GqlScript!
   createUser(createUserInput: CreateUserInput!): GqlUser!
   refreshToken(refreshTokenInput: RefreshTokenInput!): RefreshTokenResponse!
   removeFestival(id: String!): GqlFestival!

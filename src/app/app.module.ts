@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { join } from 'path';
 import { FestivalModule } from 'src/festival/festival.module';
+import { ScriptModule } from 'src/script/script.module';
 import { AuthModule } from '../auth/auth.module';
 import { CommonModule } from '../common/common.module';
 import { UserModule } from '../user/user.module';
@@ -44,6 +45,7 @@ import { UserModule } from '../user/user.module';
     CommonModule,
     AuthModule,
     FestivalModule,
+    ScriptModule,
   ],
   controllers: [],
 })

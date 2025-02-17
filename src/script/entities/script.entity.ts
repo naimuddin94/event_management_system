@@ -3,34 +3,25 @@ import { Schema as MongooSchema } from 'mongoose';
 import { GqlUser } from 'src/user/entities/user.entity';
 
 @ObjectType()
-export class GqlFestival {
+export class GqlScript {
   @Field(() => String)
   _id: MongooSchema.Types.ObjectId;
 
   @Field(() => String)
-  name: string;
-
-  @Field(() => String)
-  image: string;
+  title: string;
 
   @Field(() => String)
   description: string;
 
   @Field(() => String)
-  location: string;
-
-  @Field(() => Date)
-  starts_at: Date;
-
-  @Field(() => Date)
-  ends_at: Date;
-
-  @Field(() => GqlUser)
-  user: GqlUser;
+  image: string;
 
   @Field(() => Date)
   createdAt: Date;
 
   @Field(() => Date)
   updatedAt: Date;
+
+  @Field(() => GqlUser)
+  author: GqlUser;
 }
