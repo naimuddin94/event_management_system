@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Args } from '@nestjs/graphql';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Schema as MongooSchema } from 'mongoose';
+import { Model, Schema as MongoSchema } from 'mongoose';
 import { AppError } from 'src/utils';
 import { GetPaginatedArgs } from '../common/dto/get-paginated.args';
 import { CreateUserInput } from './dto/create-user.input';
@@ -27,7 +27,7 @@ export class UserService {
     };
   }
 
-  async findUserById(id: MongooSchema.Types.ObjectId) {
+  async findUserById(id: MongoSchema.Types.ObjectId) {
     return this.userModel.findById(id);
   }
 
@@ -65,7 +65,7 @@ export class UserService {
   }
 
   async updateUser(
-    id: MongooSchema.Types.ObjectId,
+    id: MongoSchema.Types.ObjectId,
     updateUserInput: UpdateUserInput,
   ) {
     if (updateUserInput.userName) {
@@ -81,7 +81,7 @@ export class UserService {
   }
 
   async removeUser(
-    id: MongooSchema.Types.ObjectId,
+    id: MongoSchema.Types.ObjectId,
   ): Promise<{ deletedCount?: number }> {
     return this.userModel.deleteOne({ _id: id });
   }

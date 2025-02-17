@@ -12,17 +12,17 @@ export class AuthResolver {
   constructor(private authService: AuthService) {}
 
   @Mutation(() => User)
-  signup(@Args('signUpInput') signUpInput: CreateUserInput) {
+  signUp(@Args('signUpInput') signUpInput: CreateUserInput) {
     return this.authService.signUp(signUpInput);
   }
 
   @Mutation(() => LoginUserResponse)
   @UseGuards(GqlAuthGuard)
-  signin(
+  signIn(
     @Args('loginUserInput') loginUserInput: LoginUserInput,
     @Context() context: any,
   ) {
-    return this.authService.logIn(context.user);
+    return this.authService.signIn(context.user);
   }
 
   @Mutation(() => RefreshTokenResponse)

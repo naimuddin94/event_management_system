@@ -4,11 +4,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { join } from 'path';
+import { FestivalModule } from 'src/festival/festival.module';
 import { AuthModule } from '../auth/auth.module';
 import { CommonModule } from '../common/common.module';
 import { UserModule } from '../user/user.module';
-import { AppResolver } from './app.resolver';
-import { AppService } from './app.service';
 // import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 
 @Module({
@@ -44,8 +43,8 @@ import { AppService } from './app.service';
     UserModule,
     CommonModule,
     AuthModule,
+    FestivalModule,
   ],
   controllers: [],
-  providers: [AppService, AppResolver],
 })
 export class AppModule {}

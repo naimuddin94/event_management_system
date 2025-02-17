@@ -2,6 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateFestivalInput {
+  description: String!
+  ends_at: DateTime!
+  image: String!
+  location: String!
+  name: String!
+  starts_at: DateTime!
+}
+
 input CreateUserInput {
   email: String!
   firstName: String!
@@ -14,6 +23,17 @@ input CreateUserInput {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+type Festival {
+  _id: String!
+  description: String!
+  ends_at: DateTime!
+  image: String!
+  location: String!
+  name: String!
+  starts_at: DateTime!
+  user: String!
+}
 
 type GetUsersPaginatedResponse {
   users: [User!]!
@@ -32,17 +52,21 @@ type LoginUserResponse {
 }
 
 type Mutation {
+  createFestival(createFestivalInput: CreateFestivalInput!): Festival!
   createUser(createUserInput: CreateUserInput!): User!
   refreshToken(refreshTokenInput: RefreshTokenInput!): RefreshTokenResponse!
+  removeFestival(id: String!): Festival!
   removeUser(id: String!): User!
-  signin(loginUserInput: LoginUserInput!): LoginUserResponse!
-  signup(signUpInput: CreateUserInput!): User!
+  signIn(loginUserInput: LoginUserInput!): LoginUserResponse!
+  signUp(signUpInput: CreateUserInput!): User!
+  updateFestival(updateFestivalInput: UpdateFestivalInput!): Festival!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Query {
+  festival(id: String!): Festival!
+  festivals: [Festival!]!
   getAllUsers(limit: Int = 10, skip: Int = 0): GetUsersPaginatedResponse!
-  getHello: String!
   getUserByEmail(email: String!): User!
   getUserById(id: String!): User!
 }
@@ -53,6 +77,16 @@ input RefreshTokenInput {
 
 type RefreshTokenResponse {
   accessToken: String!
+}
+
+input UpdateFestivalInput {
+  description: String
+  ends_at: DateTime
+  id: String!
+  image: String
+  location: String
+  name: String
+  starts_at: DateTime
 }
 
 input UpdateUserInput {
