@@ -5,7 +5,7 @@ import { Document, Schema as MongooSchema } from 'mongoose';
   timestamps: true,
   versionKey: false,
 })
-export class Festival {
+export class Festival extends Document {
   @Prop({ type: String, required: true })
   name: string;
 
@@ -28,5 +28,4 @@ export class Festival {
   user: MongooSchema.Types.ObjectId;
 }
 
-export type FestivalDocument = Festival & Document;
 export const FestivalSchema = SchemaFactory.createForClass(Festival);

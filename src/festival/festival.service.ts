@@ -4,13 +4,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateFestivalInput } from './dto/create-festival.input';
 import { UpdateFestivalInput } from './dto/update-festival.input';
-import { Festival, FestivalDocument } from './model/festival.model';
+import { Festival } from './model/festival.model';
 
 @Injectable()
 export class FestivalService {
   constructor(
     @InjectModel(Festival.name)
-    private festivalModel: Model<FestivalDocument>,
+    private festivalModel: Model<Festival>,
     private jwtService: JwtService,
   ) {}
 

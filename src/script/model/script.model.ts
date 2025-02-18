@@ -19,5 +19,4 @@ export class Script extends Document {
   author: MongooSchema.Types.ObjectId;
 }
 
-export type ScriptDocument = Script & Document;
 export const ScriptSchema = SchemaFactory.createForClass(Script);

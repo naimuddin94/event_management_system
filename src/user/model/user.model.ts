@@ -51,11 +51,10 @@ export class User extends Document {
   status: TUserStatus;
 }
 
-export type UserDocument = User & Document;
 export const UserSchema = SchemaFactory.createForClass(User);
 
 // ✅ Explicitly register the model
-UserSchema.pre<UserDocument>('save', async function (next) {
+UserSchema.pre<User>('save', async function (next) {
   try {
     if (this.isModified('password') || this.isNew) {
       const hashPassword = await bcrypt.hash(
