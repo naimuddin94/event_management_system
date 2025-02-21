@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Schema as MongooSchema } from 'mongoose';
 
 @Schema({
   timestamps: true,
@@ -17,6 +17,9 @@ export class Feedback extends Document {
 
   @Prop({ type: Number, required: true })
   rate: number;
+
+  @Prop({ type: MongooSchema.Types.ObjectId, ref: 'User', required: true })
+  user: MongooSchema.Types.ObjectId;
 }
 
 export const FeedbackSchema = SchemaFactory.createForClass(Feedback);
