@@ -1,11 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Schema as MongooSchema } from 'mongoose';
+import { Schema as MongooSchema } from 'mongoose';
 
-@Schema({
-  timestamps: true,
-  versionKey: false,
-})
-export class Feedback extends Document {
+@Schema({ _id: false, timestamps: true, versionKey: false })
+export class Feedback {
   @Prop({ type: String, required: true })
   type: string;
 

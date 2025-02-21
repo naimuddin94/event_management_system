@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooSchema } from 'mongoose';
+import { Feedback, FeedbackSchema } from 'src/feedback/feedback.model';
 
 @Schema({
   timestamps: true,
@@ -23,6 +24,9 @@ export class Festival extends Document {
 
   @Prop({ type: Date, required: true })
   ends_at: Date;
+
+  @Prop({ type: [FeedbackSchema], default: [] })
+  feedbacks: Feedback[];
 
   @Prop({ type: MongooSchema.Types.ObjectId, ref: 'User', required: true })
   user: MongooSchema.Types.ObjectId;
