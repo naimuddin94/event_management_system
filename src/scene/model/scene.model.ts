@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooSchema } from 'mongoose';
+import { Feedback, FeedbackSchema } from 'src/feedback/feedback.model';
 
 @Schema({
   timestamps: true,
@@ -17,6 +18,9 @@ export class Scene extends Document {
 
   @Prop({ type: String })
   notes: string;
+
+  @Prop({ type: [FeedbackSchema], default: [] })
+  feedbacks: Feedback[];
 
   @Prop({ type: MongooSchema.Types.ObjectId, ref: 'Script', required: true })
   script: MongooSchema.Types.ObjectId;
